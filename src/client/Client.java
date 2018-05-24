@@ -1,3 +1,5 @@
+package client;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -6,13 +8,8 @@ import java.util.Scanner;
 public class Client {
 
 
-    Socket serverSocket;
+    private Socket serverSocket;
 
-    public Client(String name) {
-        this.name = name;
-    }
-
-    public final String name;
 
     public void connectToServer(String address, int port) {
         try {
@@ -24,7 +21,7 @@ public class Client {
 
 
     public static void main(String[] args) throws IOException {
-        Client client = new Client("NJ");
+        Client client = new Client();
         client.connectToServer("localhost", 8189);
         new Thread(() -> {
             try {
@@ -58,7 +55,7 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         while (client.serverSocket.isConnected()) {
             if(scanner.hasNextLine()) {
-                writer.println(client.name + ": " + scanner.nextLine());
+                writer.println(scanner.nextLine());
             }
         }
     }
